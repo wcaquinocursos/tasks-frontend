@@ -1,0 +1,49 @@
+<html>
+
+<head>
+	<title>Tasks</title>
+	<link rel="stylesheet" href="/tasks/css/bootstrap.min.css">
+	<script src="/tasks/js/bootstrap.min.js"></script>
+</head>
+
+<body class="bg-light">
+	<div class="container w-75">
+		<div class="py-5 text-center">
+			<h1>Tasks</h1>
+			<p class="lead">A very simple task management tool</p>
+		</div>
+		<p class="alert alert-success" role="alert" th:if="${sucess != null}" th:text="${sucess}" id="message" />
+		<div th:switch="${todos.size()}">
+    		<h2 th:case="0">No tasks... enjoy your day!</h2>
+        	<div th:case="*">
+				<table id="todoTable" class="table table-hover">
+					<thead class="thead-dark">
+						<tr>
+							<th>Task</th>
+							<th>Due Date</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="todo : ${todos}">
+							<td th:text="${todo.task}"></td>
+							<td th:text="${todo.dueDate}"></td>
+							<td><a class="btn btn-outline-danger btn-sm" th:href="@{/delete/{id}(id=${todo.id})}">Remove</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<a class="btn btn-outline-secondary" role="button" th:href="@{/add}" id="addTodo">Add Todo</a>
+	</div>
+	<footer class="my-5 pt-5 text-muted text-center text-small border-top">
+		<p class="mb-1">&copy; 2020 Wcaquino's DevOps Course</p>
+		<p class="mb-1" th:if="${version != null}" th:text="${version}" id="version" />
+		<ul class="list-inline">
+			<li class="list-inline-item"><a href="https://wcaquino.me" target="blank">More</a></li>
+		</ul>
+	</footer>
+</body>
+
+</html>
